@@ -19,3 +19,10 @@ class FieldsUpdated extends LoginEvent {
   @override
   List<Object> get props => [];
 }
+
+
+class VisitUserRegistrationScreen extends LoginEvent {
+  const VisitUserRegistrationScreen();
+  @override
+  List<Object> get props => [];
+}

@@ -37,6 +37,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else if (event is FieldsUpdated) {
       yield LoginInitial();
+    } else if (event is VisitUserRegistrationScreen){
+      yield LoginInitial(visitRegisterScreen: true);
     }
   }
 }

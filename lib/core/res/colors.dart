@@ -1,13 +1,12 @@
 import 'package:flutter/painting.dart';
 
 /// Colors class for Teesco Application
-class Colors {
+class CustomColors {
 
-  Colors._();
+  CustomColors._();
 
   /// Completely invisible color 
   static const Color transparent = Color(0x00000000);
 
   //! Add custom colors here...
-  
 }

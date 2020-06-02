@@ -5,7 +5,9 @@ abstract class LoginState extends Equatable {
 }
 
 class LoginInitial extends LoginState {
-  const LoginInitial();
+  final bool visitRegisterScreen;
+
+  const LoginInitial({this.visitRegisterScreen=false});
   @override
   List<Object> get props => [];
 }
