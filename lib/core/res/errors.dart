@@ -3,6 +3,12 @@ class NetworkError extends Error {}
 
 class UnknownError extends Error {}
 
+class InvalidInputError extends Error{
+  final Map<String,String> details;
+
+  InvalidInputError(this.details);
+}
+
 // Login Specific Errors
 class InvalidCredentialsError extends Error {}
 

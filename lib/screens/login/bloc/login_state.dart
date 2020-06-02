@@ -9,7 +9,7 @@ class LoginInitial extends LoginState {
 
   const LoginInitial({this.visitRegisterScreen=false});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [visitRegisterScreen];
 }
 
 class LoginLoading extends LoginState {
