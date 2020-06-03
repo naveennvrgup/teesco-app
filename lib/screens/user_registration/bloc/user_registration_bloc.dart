@@ -23,15 +23,16 @@ class UserRegistrationBloc
     UserRegistrationEvent event,
   ) async* {
     yield UserRegistrationLoading();
+
     if (event is RegisterUser) {
       try {
-        await userRegistrationRepository.registerUser(
-            UserRegistrationModel(
-                name: '', email: '', password: '', institution: ''));
+        final bool result = await userRegistrationRepository.registerUser(event.userRegistrationModel);
+        // print(result);
         yield UserRegistrationInitial();
       } catch (e) {
         if(e is InvalidInputError){
-          print(e.details);
+          // print(e.details);
+          yield UserRegistrationError(e.details);
         }
       } 
     }

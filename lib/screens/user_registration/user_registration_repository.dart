@@ -13,36 +13,33 @@ abstract class UserRegistrationRepository {
   Future<bool> registerUser(UserRegistrationModel userRegistrationModel);
 }
 
-
 class APIUserRegistrationRepository implements UserRegistrationRepository {
   @override
   Future<bool> registerUser(UserRegistrationModel userRegistrationModel) async {
     http.Response response;
-    // try {
-    //   response = await sl.get<http.Client>().post(
-    //     S.loginUrl,
-    //     body: <String, dynamic>{
-    //       S.emailKey: loginModel.email,
-    //       S.passwordKey: loginModel.password,
-    //     },
-    //   );
-    // } catch (e) {
-    //   print(e);
-    //   throw NetworkError();
-    // }
+    dynamic payload = {
+        "name": userRegistrationModel.name,
+        "email": userRegistrationModel.email,
+        "institution": userRegistrationModel.institution,
+        "countryCode": userRegistrationModel.countryCode,
+        "phone": userRegistrationModel.phone,
+        "password": userRegistrationModel.password,
+        "confirmPassword": userRegistrationModel.confirmPassword,
+      };
+
+
+    try {
+      response = await sl.get<http.Client>().post(S.userRegistrationUrl, body: payload);
+      print(payload);
+      print(response.body);
+    } catch (e) {
+      print(e);
+      throw NetworkError();
+    }
 
     // Handled 400 already in validation.
-    Map<String, String> errorDetails = new Map<String, String>();
-    errorDetails.addEntries(<MapEntry<String,String>>[
-      MapEntry<String,String>('email',"This field is required."),
-      MapEntry<String,String>('name',"This field is required."),
-      MapEntry<String,String>('password',"This field is required."),
-      MapEntry<String,String>('institution',"This field is required."),
-      MapEntry<String,String>('country_code',"This field is required."),
-      MapEntry<String,String>('phone',"This field is required."),
-    ]);
 
-    throw InvalidInputError(errorDetails);
+    // throw InvalidInputError(errorDetails);
     // if (response.statusCode == 401) {
     //   throw InvalidCredentialsError();
     // } else if (response.statusCode == 404) {

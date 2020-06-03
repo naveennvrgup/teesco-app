@@ -26,7 +26,7 @@ class UserRegistrationSuccess extends UserRegistrationState {
 
 
 class UserRegistrationError extends UserRegistrationState {
-  final Map<String,List<String>> errors;
+  final Map<String,String> errors;
 
   UserRegistrationError(this.errors);
 

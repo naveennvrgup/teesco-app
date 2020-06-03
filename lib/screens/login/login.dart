@@ -72,7 +72,9 @@ class LoginScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20.0),
-              child: PasswordField(passwordController),
+              child: PasswordField(
+                controller: passwordController,
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20.0),
@@ -110,5 +112,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-

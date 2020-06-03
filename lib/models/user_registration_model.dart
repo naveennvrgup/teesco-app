@@ -3,13 +3,15 @@ import 'package:equatable/equatable.dart';
 class UserRegistrationModel extends Equatable {
   final String name;
   final String email;
-  final String password;
   final String institution;
   final String countryCode;
   final String phone;
+  final String password;
+  final String confirmPassword;
 
   UserRegistrationModel(
       {this.name,
+      this.confirmPassword,
       this.email,
       this.password,
       this.institution,

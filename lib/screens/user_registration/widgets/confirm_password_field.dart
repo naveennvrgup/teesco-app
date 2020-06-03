@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 ///Confirm Password Widget
 class ComnfirmPasswordField extends StatefulWidget {
-  const ComnfirmPasswordField(this.confirmPController);
   final TextEditingController confirmPController;
+  final String errorMsg;
+  const ComnfirmPasswordField({@required this.confirmPController, this.errorMsg});
 
   @override
   _ComnfirmPasswordFieldState createState() => _ComnfirmPasswordFieldState();
@@ -25,6 +26,7 @@ class _ComnfirmPasswordFieldState extends State<ComnfirmPasswordField> {
       validator: _confirmPassword,
       obscureText: !_passwordVisible,
       decoration: InputDecoration(
+        errorText: widget.errorMsg,
         prefixIcon: Icon(Icons.lock),
         suffixIcon: IconButton(
           icon: _passwordVisible

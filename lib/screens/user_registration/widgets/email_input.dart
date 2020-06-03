@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EmailField extends StatelessWidget {
-  const EmailField(this.controller);
   final TextEditingController controller;
+  final String errorMsg;
+  const EmailField({@required this.controller, this.errorMsg: ''});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +12,13 @@ class EmailField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       validator: _validateEmail,
       decoration: InputDecoration(
-        suffixText: '*',
-        suffixStyle: TextStyle(color: Colors.red, fontSize: 20),
-        prefixIcon: Icon(Icons.email),
-        border: OutlineInputBorder(),
-        hintText: "example@email.com",
-        labelText: "Email",
-      ),
+          suffixText: '*',
+          suffixStyle: TextStyle(color: Colors.red, fontSize: 20),
+          prefixIcon: Icon(Icons.email),
+          border: OutlineInputBorder(),
+          hintText: "example@email.com",
+          labelText: "Email",
+          errorText: errorMsg),
     );
   }
 

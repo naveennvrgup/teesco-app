@@ -18,8 +18,10 @@ class UserRegistration extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController instituteNameController = TextEditingController();
 
+  Widget buildInitial(BuildContext context, {Map<String, String> errors}) {
+    // assign an empty object if there are not errors
+    errors ??= Map<String, String>();
 
-  Widget buildInitial(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: Form(
@@ -46,30 +48,43 @@ class UserRegistration extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: EmailField(emailController),
+                child: EmailField(
+                  controller: emailController,
+                  errorMsg: errors['email'],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: InstituteNameField(
                   controller: instituteNameController,
+                  errorMsg: errors['institution'],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: PhoneNumberField(controller: phoneNumberController),
+                child: PhoneNumberField(
+                  controller: phoneNumberController,
+                  errorMsg: errors['phone'],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: PasswordField(passwordController),
+                child: PasswordField(
+                  controller: passwordController,
+                  errorMsg: errors['password'],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: ComnfirmPasswordField(confirmPasswordController),
+                child: ComnfirmPasswordField(
+                  confirmPController: confirmPasswordController,
+                  errorMsg: errors['confirmPassword'],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: RaisedButton(
-                  onPressed: ()=> _onSignupKeyPresssed(context),
+                  onPressed: () => _onSignupKeyPresssed(context),
                   child: Text('Sign Up'),
                 ),
               ),
@@ -81,17 +96,30 @@ class UserRegistration extends StatelessWidget {
   }
 
   void _onSignupKeyPresssed(context) {
-    final UserRegistrationBloc userRegistrationBloc= BlocProvider.of<UserRegistrationBloc>(context); 
-    userRegistrationBloc.add(RegisterUser(UserRegistrationModel()));
+    final UserRegistrationBloc userRegistrationBloc =
+        BlocProvider.of<UserRegistrationBloc>(context);
+    UserRegistrationModel userRegistrationModel = new UserRegistrationModel(
+        email: emailController.text,
+        password: passwordController.text,
+        confirmPassword: confirmPasswordController.text,
+        institution: instituteNameController.text,
+        phone: phoneNumberController.text,
+        name: userNameController.text);
+    userRegistrationBloc.add(RegisterUser(userRegistrationModel));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserRegistrationBloc(APIUserRegistrationRepository()),
-          child: BlocBuilder<UserRegistrationBloc, UserRegistrationState>(
+      create: (context) =>
+          UserRegistrationBloc(APIUserRegistrationRepository()),
+      child: BlocBuilder<UserRegistrationBloc, UserRegistrationState>(
           builder: (context, state) {
+        if (state is UserRegistrationError) {
+          return buildInitial(context, errors: state.errors);
+        }
         return buildInitial(context);
+        // return Text('adsf');
       }),
     );
   }
