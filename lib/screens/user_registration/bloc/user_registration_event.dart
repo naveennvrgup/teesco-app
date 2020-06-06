@@ -5,22 +5,16 @@ abstract class UserRegistrationEvent extends Equatable {
 }
 
 class RegisterUser extends UserRegistrationEvent {
-  final UserRegistrationModel userRegistrationModel;
+  final dynamic payload;
 
-  RegisterUser(this.userRegistrationModel);
+  RegisterUser(this.payload);
 
   @override
-  List<Object> get props => [userRegistrationModel];
+  List<Object> get props => [payload];
 }
 
 class VisitLoginScreen extends UserRegistrationEvent {
   const VisitLoginScreen();
-  @override
-  List<Object> get props => [];
-}
-
-class FieldsUpdated extends UserRegistrationEvent {
-  const FieldsUpdated();
   @override
   List<Object> get props => [];
 }

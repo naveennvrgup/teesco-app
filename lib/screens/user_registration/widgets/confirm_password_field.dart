@@ -42,7 +42,6 @@ class _ComnfirmPasswordFieldState extends State<ComnfirmPasswordField> {
   }
 
   String _confirmPassword(String password) {
-    //TODO: Logic for getting password here and implementing check method
     if (password.isEmpty) {
       return "Please enter password";
     }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:teesco/core/res/errors.dart';
-import 'package:teesco/models/user_registration_model.dart';
+import 'package:teesco/screens/login/bloc/login_bloc.dart';
 import 'package:teesco/screens/user_registration/user_registration_repository.dart';
 
 part 'user_registration_event.dart';
@@ -24,17 +24,24 @@ class UserRegistrationBloc
   ) async* {
     yield UserRegistrationLoading();
 
+    // if the user wants to go to login screen
+    if (event is VisitLoginScreen) {
+      print("vis login ");
+      yield VisitLoginScreenState();
+    }
+
+    // to make the register API call
     if (event is RegisterUser) {
       try {
-        final bool result = await userRegistrationRepository.registerUser(event.userRegistrationModel);
-        // print(result);
-        yield UserRegistrationInitial();
+        await userRegistrationRepository.registerUser(event.payload);
+        // upon success
+        yield UserRegistrationSuccess();
       } catch (e) {
-        if(e is InvalidInputError){
-          // print(e.details);
-          yield UserRegistrationError(e.details);
+        // upon error
+        if (e is InvalidFormInputError) {
+          yield UserRegistrationError(e.errorDetail);
         }
-      } 
+      }
     }
   }
 }

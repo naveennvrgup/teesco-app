@@ -5,12 +5,8 @@ abstract class UserRegistrationState extends Equatable {
 }
 
 class UserRegistrationInitial extends UserRegistrationState {
-  final bool visitSignupScreen;
-
-  UserRegistrationInitial({this.visitSignupScreen: false});
-
   @override
-  List<Object> get props => [visitSignupScreen];
+  List<Object> get props => [];
 }
 
 class UserRegistrationLoading extends UserRegistrationState {
@@ -30,6 +26,11 @@ class UserRegistrationError extends UserRegistrationState {
 
   UserRegistrationError(this.errors);
 
+  @override
+  List<Object> get props => [];
+}
+
+class VisitLoginScreenState extends UserRegistrationState {
   @override
   List<Object> get props => [];
 }
