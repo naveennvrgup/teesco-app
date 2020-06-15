@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teesco/screens/login/login.dart';
-import 'package:teesco/screens/login/widgets/password_field.dart';
+import 'package:teesco/screens/user_registration/widgets/password_field.dart';
 import 'package:teesco/screens/user_registration/bloc/user_registration_bloc.dart';
 import 'package:teesco/screens/user_registration/user_registration_repository.dart';
 import 'package:teesco/screens/user_registration/widgets/confirm_password_field.dart';
@@ -10,7 +10,6 @@ import 'package:teesco/screens/user_registration/widgets/full_name_field.dart';
 import 'package:teesco/screens/user_registration/widgets/institute_name_field.dart';
 import 'package:teesco/screens/user_registration/widgets/phone_number_field.dart';
 import 'package:teesco/screens/user_registration/widgets/signup_button.dart';
-import 'package:teesco/screens/user_registration/widgets/visit_login_text.dart';
 
 class UserRegistration extends StatelessWidget {
   // Form key
@@ -28,61 +27,61 @@ class UserRegistration extends StatelessWidget {
   Widget buildInitial(BuildContext context, {Map<String, String> errors}) {
     // assign an empty object if there are no errors
     errors ??= Map<String, String>();
+    double textFieldMargin = 10.0;
 
     return Scaffold(
         body: SafeArea(
       child: Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: FullNameField(
+          child: Center(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    FullNameField(
                         fullNameController: fullNameController,
                         errorMsg: errors['name']),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: EmailField(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    EmailField(
                       controller: emailController,
                       errorMsg: errors['email'],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: InstituteNameField(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    InstituteNameField(
                       controller: instituteNameController,
                       errorMsg: errors['institution'],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: PhoneNumberField(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    PhoneNumberField(
                       controller: phoneNumberController,
                       errorMsg: errors['phone'],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: PasswordField(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    PasswordField(
                       controller: passwordController,
                       errorMsg: errors['password'],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ComnfirmPasswordField(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    ComnfirmPasswordField(
                       confirmPController: confirmPasswordController,
                       errorMsg: errors['confirmPassword'],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: SignupButton(
+                    SizedBox(
+                      height: textFieldMargin,
+                    ),
+                    SignupButton(
                         formKey: _formKey,
                         emailController: emailController,
                         passwordController: passwordController,
@@ -90,12 +89,8 @@ class UserRegistration extends StatelessWidget {
                         instituteNameController: instituteNameController,
                         phoneNumberController: phoneNumberController,
                         userNameController: fullNameController),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: VisitLoginText(),
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
           )),
@@ -109,7 +104,7 @@ class UserRegistration extends StatelessWidget {
           UserRegistrationBloc(APIUserRegistrationRepository()),
       child: BlocListener<UserRegistrationBloc, UserRegistrationState>(
         listener: (context, state) async {
-            print("daf");
+          print("daf");
           if (state is VisitLoginScreenState) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => LoginScreen()));
