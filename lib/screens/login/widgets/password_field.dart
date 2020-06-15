@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teesco/screens/login/bloc/login_bloc.dart';
 
 class PasswordField extends StatefulWidget {
+  const PasswordField(this.controller);
   final TextEditingController controller;
-  final String errorMsg;
-  const PasswordField({@required this.controller, this.errorMsg});
-  
   @override
   _PasswordFieldState createState() => _PasswordFieldState();
 }
@@ -28,7 +26,6 @@ class _PasswordFieldState extends State<PasswordField> {
         validator: _validatePassword,
         obscureText: !_passwordVisible,
         decoration: InputDecoration(
-          errorText: widget.errorMsg,
           prefixIcon: Icon(Icons.lock),
           suffixIcon: IconButton(
             icon: _passwordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),

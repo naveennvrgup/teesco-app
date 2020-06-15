@@ -4,8 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teesco/core/res/strings.dart';
 import 'package:teesco/injection_container.dart';
 import 'package:teesco/screens/home/home.dart';
-import 'package:teesco/screens/login/widgets/visit_user_register_text.dart';
-import 'package:teesco/screens/user_registration/user_registration.dart';
 
 import '../../core/util/log_wrapper.dart';
 import 'bloc/login_bloc.dart';
@@ -27,37 +25,30 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginLoaded) {
             Log.i(tag: "Login", message: "User Logged In ${state.token}");
             await sharedPreferences.setString(S.tokenKey, state.token);
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
           } else if (state is LoginError) {
-            Scaffold.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          } else if (state is LoginInitial) {
-            if (state.visitRegisterScreen) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserRegistration()));
-            }
+            Scaffold.of(context).showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             if (state is LoginInitial) {
-              return _buildInitial(context);
+              return _buildInitial();
             } else if (state is LoginLoading) {
               return _buildLoading();
             } else if (state is LoginLoaded) {
               return _buildSuccess(state.token);
             } else if (state is LoginError) {
-              return _buildInitial(context);
+              return _buildInitial();
             } else
-              return _buildInitial(context);
+              return _buildInitial();
           },
         ),
       ),
     );
   }
 
-  Widget _buildInitial(BuildContext context) {
+  Widget _buildInitial() {
     return Form(
       key: _formKey,
       child: Padding(
@@ -72,9 +63,7 @@ class LoginScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20.0),
-              child: PasswordField(
-                controller: passwordController,
-              ),
+              child: PasswordField(passwordController),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20.0),
@@ -84,7 +73,6 @@ class LoginScreen extends StatelessWidget {
                 password: passwordController.text,
               ),
             ),
-            VisitUserRegisterText(),
           ],
         ),
       ),
