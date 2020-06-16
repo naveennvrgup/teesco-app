@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teesco/screens/group_list/bloc/group_list_bloc.dart';
 import 'package:teesco/screens/group_list/widgets/group_list_tile.dart';
 
-class GroupList extends StatefulWidget {
+class GroupList extends StatelessWidget {
   @override
-  _GroupListState createState() => _GroupListState();
-}
-
-class _GroupListState extends State<GroupList> {
-  @override
-  Widget build(BuildContext context) {
+  Widget buildInitial(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
@@ -46,6 +43,23 @@ class _GroupListState extends State<GroupList> {
         onPressed: () {},
         backgroundColor: Color(0xFF898989),
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => GroupListBloc(),
+        child: BlocListener<GroupListBloc, GroupListState>(
+          listener: (event, state) {},
+          child: BlocBuilder<GroupListBloc, GroupListState>(
+            builder: (event, state) {
+              return buildInitial(context);
+            },
+          ),
+        ),
       ),
     );
   }
