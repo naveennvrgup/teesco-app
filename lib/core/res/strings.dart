@@ -12,7 +12,8 @@ class S {
   // urls
   static const String url = "http://159.65.158.103:5555/api/";
   static const String loginUrl = url + "users/login/";
-
+  static String fetchGroupsUrl(orgId) => url + "org/$orgId/group/";
+  
   // api keys
   static const String tokenKey = "token";
   static const String passwordKey = "password";
