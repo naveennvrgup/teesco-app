@@ -44,6 +44,6 @@ class APIGroupListRepository implements GroupListRepository {
       {"id": 3, "name": "group3", "memberCount": 1}
     ];
 
-    return (json.decode(dummy) as List<dynamic>).map((e) => OrgGroup.);
+    return (dummy as List<dynamic>).map((e) => OrgGroup.fromJson(e));
   }
 }

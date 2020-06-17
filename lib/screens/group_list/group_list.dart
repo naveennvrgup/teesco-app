@@ -5,6 +5,35 @@ import 'package:teesco/screens/group_list/widgets/group_list_tile.dart';
 
 class GroupList extends StatelessWidget {
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => GroupListBloc(),
+        child: BlocListener<GroupListBloc, GroupListState>(
+          listener: (event, state) => _blocListener(event, state),
+          child: BlocBuilder<GroupListBloc, GroupListState>(
+            builder: (event, state) => _blocBuilder(event, state, context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  GroupList(){
+    print("dsfs");
+  }
+  
+
+  _blocListener(event, state) {
+
+  }
+  
+  _blocBuilder(event, state, context) {
+    return buildInitial(context);
+  }
+
+
+
   Widget buildInitial(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,23 +72,6 @@ class GroupList extends StatelessWidget {
         onPressed: () {},
         backgroundColor: Color(0xFF898989),
         child: Icon(Icons.add),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => GroupListBloc(),
-        child: BlocListener<GroupListBloc, GroupListState>(
-          listener: (event, state) {},
-          child: BlocBuilder<GroupListBloc, GroupListState>(
-            builder: (event, state) {
-              return buildInitial(context);
-            },
-          ),
-        ),
       ),
     );
   }
